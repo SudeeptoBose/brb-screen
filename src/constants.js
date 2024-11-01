@@ -19,3 +19,10 @@ export const FONT_OPTIONS = [
 ]
 
 export const MAX_CHARS_PER_WORD = 15
+
+export const FIREFLY_COLORS = [
+  { id: 'white', value: '#ffffff', label: 'White' },
+  { id: 'yellow', value: '#ffdd00', label: 'Yellow' },
+  { id: 'red', value: '#ff4444', label: 'Red' },
+  { id: 'blue', value: '#4444ff', label: 'Blue' }
+]

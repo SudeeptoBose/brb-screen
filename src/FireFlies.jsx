@@ -2,13 +2,20 @@ import { useRef, useMemo, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { PlaneGeometry, InstancedMesh, Matrix4, Vector3 } from 'three'
 import { FireFlyMaterial } from './FireFlyMaterial'
+import * as THREE from 'three'
 
-export function FireFlies({ count = 100, radius = 15 }) {
-  const mesh = useRef()
-  const material = useRef()
+export function FireFlies({ count = 100, radius = 15, color = '#ffffff' }) {
+    const mesh = useRef()
+    const material = useRef()
+  
+    const geometry = useMemo(() => new PlaneGeometry(0.2, 0.2), [])
+    const fireFlyMaterial = useMemo(() => {
+      return new FireFlyMaterial({ uColor: new THREE.Color(color) })
+    }, [])
 
-  const geometry = useMemo(() => new PlaneGeometry(0.2, 0.2), [])
-  const fireFlyMaterial = useMemo(() => new FireFlyMaterial(), [])
+    useEffect(() => {
+        fireFlyMaterial.uniforms.uColor.value = new THREE.Color(color)
+      }, [color, fireFlyMaterial])
 
   // Initialize positions
   useEffect(() => {

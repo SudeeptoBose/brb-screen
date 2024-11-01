@@ -15,7 +15,7 @@ const FONTS = {
   gentilis: "/fonts/gentilis_regular.typeface.json"
 }
 
-export default function Scene({ text, matcapId, font }) {
+export default function Scene({ text, matcapId, font, fireFlyColor }) {
   const { viewport } = useThree()
   const [matcapTexture] = useMatcapTexture(matcapId, 256)
   
@@ -46,7 +46,7 @@ export default function Scene({ text, matcapId, font }) {
       <ambientLight intensity={0.2} />
 
       {/* FireFlies */}
-      <FireFlies count={100} radius={20} />
+      <FireFlies count={50} radius={20} color={fireFlyColor} />
 
       {/* Main Text */}
       <Float rotationIntensity={2} floatIntensity={2}>

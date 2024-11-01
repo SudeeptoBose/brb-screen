@@ -6,7 +6,8 @@ import {
   MAX_WORDS, 
   MATCAP_OPTIONS, 
   FONT_OPTIONS,
-  MAX_CHARS_PER_WORD 
+  MAX_CHARS_PER_WORD,
+  FIREFLY_COLORS 
 } from './constants'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   const [canvasHeight, setCanvasHeight] = useState('100vh')
   const [showWarning, setShowWarning] = useState(false)
   const [warningMessage, setWarningMessage] = useState('')
+  const [fireFlyColor, setFireFlyColor] = useState(FIREFLY_COLORS[0].value)
 
   useEffect(() => {
     const updateCanvasHeight = () => {
@@ -65,10 +67,17 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen bg-gradient-to-b from-gray-900 to-gray-800 relative flex flex-col">
+      <div className="w-screen h-screen bg-gradient-to-b from-gray-900 to-gray-800 relative flex flex-col">
+      {/* Existing Canvas div */}
       <div className="w-full flex-grow" style={{ height: canvasHeight }}>
         <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
           <Suspense fallback={null}>
-            <Scene text={text} matcapId={matcapId} font={font} />
+            <Scene 
+              text={text} 
+              matcapId={matcapId} 
+              font={font}
+              fireFlyColor={fireFlyColor} 
+            />
             <OrbitControls 
               enableDamping 
               enablePan={false} 
@@ -78,6 +87,32 @@ export default function App() {
           </Suspense>
         </Canvas>
         <Loader/>
+
+        {/* Color Control Panel */}
+        <div className="absolute right-20 top-1/2 -translate-y-1/2 space-y-4">
+          {FIREFLY_COLORS.map((color) => (
+            <button
+              key={color.id}
+              onClick={() => setFireFlyColor(color.value)}
+              className={`w-4 h-4 rounded-full transition-all duration-200 
+                         border-2 flex items-center justify-center
+                         hover:scale-110 active:scale-95
+                         ${fireFlyColor === color.value 
+                           ? 'border-white scale-110' 
+                           : 'border-transparent'}`}
+              style={{
+                backgroundColor: color.value,
+                boxShadow: `0 0 20px ${color.value}40`
+              }}
+              aria-label={color.label}
+            >
+              {fireFlyColor === color.value && (
+                <div className="w-2 h-2 rounded-full bg-white"/>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
       </div>
 
       <div id="controls" className="w-full bg-black/30 backdrop-blur-md border-t border-white/10 p-4">
