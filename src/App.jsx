@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { Loader, OrbitControls } from '@react-three/drei'
 import { useState, useEffect, Suspense } from 'react'
 import Scene from './Scene'
+import Credits from './Credits'
 import { 
   MAX_WORDS, 
   MATCAP_OPTIONS, 
@@ -67,6 +68,7 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen bg-gradient-to-b from-gray-900 to-gray-800 relative flex flex-col">
+      <Credits /> 
       <div className="w-screen h-screen bg-gradient-to-b from-gray-900 to-gray-800 relative flex flex-col">
       {/* Existing Canvas div */}
       <div className="w-full flex-grow" style={{ height: canvasHeight }}>
